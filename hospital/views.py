@@ -19,7 +19,8 @@ from .models import Post, Hospital
 def home_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
-    return render(request, 'hospital/index.html')
+    posts = models.Post.objects.all()
+    return render(request, 'hospital/index.html',{'posts':posts})
 
 
 def adminclick_view(request):
