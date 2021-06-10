@@ -111,6 +111,13 @@ urlpatterns += [
     path('doctors_list', views.doctor_list, ),
     path('hospitals/review/<int:id>', views.hospital_indiv_review, ),
     path('doctors/review/<int:id>', views.doctor_indiv_review, ),
-    path('discharge/<int:pk>', views.doctor_discharge_patient_view)
+    path('discharge/<int:pk>', views.doctor_discharge_patient_view),
+
+
+    path('hospital-approve/<int:pk>', views.approve_hospital_view, name="approve-hospital"),
+    path('admin-hospital-view', views.admin_hospital_view)
+
+
+
 
 ]
