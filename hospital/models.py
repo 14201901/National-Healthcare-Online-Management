@@ -9,6 +9,7 @@ class Hospital(models.Model):
     profile_pic = models.ImageField(upload_to='profile_pic/HospitalProfilePic/', null=True, blank=True)
     location = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20, null=True)
+    approved = models.BooleanField(null=False, blank=False, default=True)
 
     def __str__(self):
         return "{} ({})".format(self.hospital_name, self.location)
@@ -33,7 +34,7 @@ class Doctor(models.Model):
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20, null=True)
     department = models.CharField(max_length=50, choices=departments, default='Cardiologist')
-    status = models.BooleanField(default=False)
+    approved = models.BooleanField(null=False, blank=False, default=True)
 
     @property
     def get_name(self):
@@ -110,6 +111,7 @@ class HospitalReview(models.Model):
     hospital = models.ForeignKey(Hospital, null=False, blank=False, on_delete=models.CASCADE)
     rating = models.IntegerField(choices=ratings, null=False, blank=False)
     comment = models.CharField(max_length=1000)
+    attachment = models.FileField(upload_to="attachments/hospital/", blank=True, null=True)
 
 
 hospital_patient_status = [('Admitted', 'Admitted'), ('Discharged', 'Discharged')]
@@ -119,6 +121,7 @@ class DoctorReview(models.Model):
     doctor = models.ForeignKey(Doctor, null=False, blank=False, on_delete=models.CASCADE)
     rating = models.IntegerField(choices=ratings,null=True, blank=True)
     comment = models.CharField(max_length=1000, null=True, blank= True)
+    attachment = models.FileField(upload_to="attachments/doctor/", blank=True, null=True)
 
 
 

@@ -19,7 +19,8 @@ from .models import Post, Hospital
 def home_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
-    return render(request, 'hospital/index.html')
+    posts = models.Post.objects.all()
+    return render(request, 'hospital/index.html', {'posts': posts})
 
 
 def adminclick_view(request):
@@ -167,8 +168,8 @@ def admin_dashboard_view(request):
     doctors = models.Doctor.objects.all().order_by('-id')
     patients = models.Patient.objects.all().order_by('-id')
     # for three cards
-    doctorcount = models.Doctor.objects.all().filter(status=True).count()
-    pendingdoctorcount = models.Doctor.objects.all().filter(status=False).count()
+    doctorcount = models.Doctor.objects.all().filter(approved=True).count()
+    pendingdoctorcount = models.Doctor.objects.all().filter(approved=False).count()
 
     patientcount = models.Patient.objects.all().filter(approved=True).count()
     pendingpatientcount = models.Patient.objects.all().filter(approved=False).count()
@@ -265,14 +266,29 @@ def admin_add_doctor_view(request):
 @user_passes_test(is_admin)
 def admin_approve_doctor_view(request):
     # those whose approval are needed
-    doctors = models.Doctor.objects.all().filter(status=False)
+    doctors = models.Doctor.objects.all().filter(approved=False)
     return render(request, 'hospital/admin_approve_doctor.html', {'doctors': doctors})
+
 
 
 @login_required(login_url='adminlogin')
 @user_passes_test(is_admin)
 def approve_doctor_view(request, pk):
     doctor = models.Doctor.objects.get(id=pk)
+    doctor.status = True
+    doctor.save()
+    return redirect('admin-dashboard')
+
+
+def admin_hospital_view(request):
+    hospitals = models.Hospital.objects.all()
+    dict = {
+        "hospitals" : hospitals
+    }
+    return render(request, 'hospital/admin_view_hospital.html', dict)
+
+def approve_hospital_view(request, pk):
+    doctor = models.Hospital.objects.get(id=pk)
     doctor.status = True
     doctor.save()
     return redirect('admin-dashboard')
@@ -569,7 +585,7 @@ def doctor_dashboard_view(request):
         post = Post(text=text, doctor=doctor)
         post.save()
     # for three cards
-    patientcount = models.DoctorAppointment.objects.all().filter( doctor__user_id=request.user.id).count()
+    patientcount = models.DoctorAppointment.objects.all().filter(doctor__user_id=request.user.id).count()
     appointmentcount = models.DoctorAppointment.objects.all().filter(status=True, doctor__user=request.user).count()
     patientdischarged = models.PatientDischargeDetails.objects.all().distinct().filter(
         assignedDoctorName=request.user.first_name).count()
@@ -942,6 +958,7 @@ def hospital_indiv_review(request, id):
     }
     return render(request, 'hospital/hospital_review_view.html', dic)
 
+
 def doctor_list(request):
     user_list = models.Doctor.objects.all()
     page = request.GET.get('page', 1)
@@ -969,7 +986,7 @@ def doctor_indiv_review(request, id):
 
 
 def doctor_discharge_patient_view(request, pk):
-    appoint = models.DoctorAppointment.objects.get(id = pk)
+    appoint = models.DoctorAppointment.objects.get(id=pk)
     patient = appoint.patient
     days = (date.today() - appoint.appointmentDate)  # 2 days, 0:00:00
     assignedDoctor = appoint.doctor
