@@ -143,9 +143,13 @@ def afterlogin_view(request):
     if is_admin(request.user):
         return redirect('admin-dashboard')
     elif is_hospital(request.user):
-        return redirect('hospital-dashboard')
+        accountapproval = models.Hospital.objects.all().filter(user_id=request.user.id, approved=True)
+        if accountapproval:
+            return redirect('hospital-dashboard')
+        else:
+            return render(request, 'hospital/doctor_wait_for_approval.html')
     elif is_doctor(request.user):
-        accountapproval = models.Doctor.objects.all().filter(user_id=request.user.id, status=True)
+        accountapproval = models.Doctor.objects.all().filter(user_id=request.user.id, approved=True)
         if accountapproval:
             return redirect('doctor-dashboard')
         else:
