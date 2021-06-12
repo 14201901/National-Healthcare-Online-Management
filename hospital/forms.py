@@ -106,10 +106,10 @@ class HospitalPatientForm(forms.ModelForm):
 class HospitalReviewForm(forms.ModelForm):
     class Meta:
         model = HospitalReview
-        fields = ['rating', 'comment']
+        fields = ['rating', 'comment', 'attachment']
 
 
 class DoctorReviewForm(forms.ModelForm):
     class Meta:
         model = DoctorReview
-        fields = ['rating', 'comment']
+        fields = ['rating', 'comment', 'attachment']

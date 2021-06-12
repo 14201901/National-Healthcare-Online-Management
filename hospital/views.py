@@ -74,6 +74,7 @@ def doctor_signup_view(request):
             user.save()
             doctor = doctorForm.save(commit=False)
             doctor.user = user
+            doctor.approved = False
             doctor = doctor.save()
             my_doctor_group = Group.objects.get_or_create(name='DOCTOR')
             my_doctor_group[0].user_set.add(user)
@@ -94,6 +95,7 @@ def hospital_signup_view(request):
             user.save()
             doctor = doctorForm.save(commit=False)
             doctor.user = user
+            doctor.approved = False
             doctor = doctor.save()
             my_doctor_group = Group.objects.get_or_create(name='HOSPITAL')
             my_doctor_group[0].user_set.add(user)
@@ -115,6 +117,7 @@ def patient_signup_view(request):
             patient = patientForm.save(commit=False)
             patient.user = user
             patient.assignedDoctorId = request.POST.get('assignedDoctorId')
+            patient.approved = False
             patient = patient.save()
             my_patient_group = Group.objects.get_or_create(name='PATIENT')
             my_patient_group[0].user_set.add(user)
