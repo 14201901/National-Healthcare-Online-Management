@@ -203,7 +203,7 @@ def admin_doctor_view(request):
 @login_required(login_url='adminlogin')
 @user_passes_test(is_admin)
 def admin_view_doctor_view(request):
-    doctors = models.Doctor.objects.all().filter(status=True)
+    doctors = models.Doctor.objects.all().filter(approved=True)
     return render(request, 'hospital/admin_view_doctor.html', {'doctors': doctors})
 
 
@@ -234,7 +234,7 @@ def update_doctor_view(request, pk):
             user.set_password(user.password)
             user.save()
             doctor = doctorForm.save(commit=False)
-            doctor.status = True
+            doctor.approved = True
             doctor.save()
             return redirect('admin-view-doctor')
     return render(request, 'hospital/admin_update_doctor.html', context=mydict)
@@ -256,7 +256,7 @@ def admin_add_doctor_view(request):
 
             doctor = doctorForm.save(commit=False)
             doctor.user = user
-            doctor.status = True
+            doctor.approved = True
             doctor.save()
 
             my_doctor_group = Group.objects.get_or_create(name='DOCTOR')
@@ -279,7 +279,7 @@ def admin_approve_doctor_view(request):
 @user_passes_test(is_admin)
 def approve_doctor_view(request, pk):
     doctor = models.Doctor.objects.get(id=pk)
-    doctor.status = True
+    doctor.approved = True
     doctor.save()
     return redirect('admin-dashboard')
 
@@ -293,7 +293,7 @@ def admin_hospital_view(request):
 
 def approve_hospital_view(request, pk):
     doctor = models.Hospital.objects.get(id=pk)
-    doctor.status = True
+    doctor.approved = True
     doctor.save()
     return redirect('admin-dashboard')
 
@@ -311,7 +311,7 @@ def reject_doctor_view(request, pk):
 @login_required(login_url='adminlogin')
 @user_passes_test(is_admin)
 def admin_view_doctor_specialisation_view(request):
-    doctors = models.Doctor.objects.all().filter(status=True)
+    doctors = models.Doctor.objects.all().filter(approved=True)
     return render(request, 'hospital/admin_view_doctor_specialisation.html', {'doctors': doctors})
 
 
@@ -355,7 +355,7 @@ def update_patient_view(request, pk):
             user.set_password(user.password)
             user.save()
             patient = patientForm.save(commit=False)
-            patient.status = True
+            patient.approved = True
             patient.assignedDoctorId = request.POST.get('assignedDoctorId')
             patient.save()
             return redirect('admin-view-patient')
@@ -378,7 +378,7 @@ def admin_add_patient_view(request):
 
             patient = patientForm.save(commit=False)
             patient.user = user
-            patient.status = True
+            patient.approved = True
             patient.assignedDoctorId = request.POST.get('assignedDoctorId')
             patient.save()
 
@@ -1007,7 +1007,7 @@ def doctor_discharge_patient_view(request, pk):
         'assignedDoctorName': assignedDoctor.get_name,
     }
     if request.method == 'POST':
-        patient.status = "Discharged"
+        patient.approved = "Discharged"
         patient.save()
         feeDict = {
             'doctorFee': request.POST['doctorFee'],
