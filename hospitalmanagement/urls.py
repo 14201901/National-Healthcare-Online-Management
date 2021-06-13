@@ -115,7 +115,8 @@ urlpatterns += [
 
 
     path('hospital-approve/<int:pk>', views.approve_hospital_view, name="approve-hospital"),
-    path('admin-hospital-view', views.admin_hospital_view)
+    path('hospital-reject/<int:pk>', views.reject_hospital_view, name="reject-hospital"),
+    path('admin-hospital-view', views.admin_hospital_view,name='admin-hospital')
 
 
 

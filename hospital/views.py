@@ -298,7 +298,13 @@ def approve_hospital_view(request, pk):
     doctor = models.Hospital.objects.get(id=pk)
     doctor.approved = True
     doctor.save()
-    return redirect('admin-dashboard')
+    return redirect('admin-hospital')
+
+def reject_hospital_view(request, pk):
+    doctor = models.Hospital.objects.get(id=pk)
+    doctor.approved = False
+    doctor.save()
+    return redirect('admin-hospital')
 
 
 @login_required(login_url='adminlogin')
@@ -912,6 +918,7 @@ def doctor_review(request, pk):
 
 
 def hospital_review(request, pk):
+
     hospital_appointment = models.HospitalPatient.objects.get(id=pk)
     hospital = hospital_appointment.hospital
     patient = hospital_appointment.patient
@@ -926,15 +933,18 @@ def hospital_review(request, pk):
             hospital_appointment.is_reviewed = True
             hospital_appointment.save()
     dic = {
-        'form': HospitalReviewForm()
+        'form': HospitalReviewForm(),
+        'patient' : patient
     }
     return render(request, 'hospital/patient_hospital_review.html', context=dic)
 
 
 def patient_hospital_history(request):
+    patient =  models.Patient.objects.get(user=request.user)
     hospital_history = models.HospitalPatient.objects.filter(patient__user=request.user)
     dic = {
-        'appointments': hospital_history
+        'appointments': hospital_history,
+        'patient' : patient
     }
     return render(request, 'hospital/patient_hospital_history.html', context=dic)
 
@@ -1010,7 +1020,7 @@ def doctor_discharge_patient_view(request, pk):
         'assignedDoctorName': assignedDoctor.get_name,
     }
     if request.method == 'POST':
-        patient.approved = "Discharged"
+        # patient.approved = "Discharged"
         patient.save()
         feeDict = {
             'doctorFee': request.POST['doctorFee'],

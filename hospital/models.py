@@ -121,6 +121,7 @@ class DoctorReview(models.Model):
     doctor = models.ForeignKey(Doctor, null=False, blank=False, on_delete=models.CASCADE)
     rating = models.IntegerField(choices=ratings,null=True, blank=True)
     comment = models.CharField(max_length=1000, null=True, blank= True)
+    symtoms = models.CharField(max_length=100, null=False, blank=False)
     attachment = models.FileField(upload_to="attachments/doctor/", blank=True, null=True)
 
 
