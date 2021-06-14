@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.contrib.auth.models import User
 hospital_patient_status = [('Admitted', 'Admitted'), ('Discharged', 'Discharged')]
@@ -67,13 +68,25 @@ class Patient(models.Model):
         return self.user.first_name
 
 
+class HospitalPatient(models.Model):
+    patient = models.ForeignKey(Patient ,null=False, blank=False ,on_delete=models.CASCADE)
+    hospital = models.ForeignKey(Hospital, null=False, blank=False ,on_delete=models.CASCADE)
+    symptoms = models.CharField(max_length=1000 ,default="")
+    admitdate = models.DateField(auto_now=True)
+    status = models.CharField(choices=hospital_patient_status, null=False, blank=False ,max_length=100)
+    is_reviewed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "{} ({})".format(self.hospital.hospital_name, self.patient.get_name)
+
+
 class DoctorAppointment(models.Model):
     patient = models.ForeignKey(Patient, null=True, on_delete=models.CASCADE)
-    doctor = models.ForeignKey(Doctor,null=True,on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Doctor ,null=True ,on_delete=models.CASCADE)
     appointmentDate = models.DateField(auto_now=True)
     symtoms = models.CharField(max_length=50, null=False, blank=True)
     description = models.TextField(max_length=500)
-    status = models.BooleanField(default=False)
+    status = models.CharField(choices=doctor_patient_status ,blank=True, null=True, max_length=100, default="Enrolled")
     is_reviewed = models.BooleanField(default=False)
 
 
@@ -97,8 +110,8 @@ class PatientDischargeDetails(models.Model):
 
 
 class Post(models.Model):
-    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE,blank=True, null=True)
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE,blank=True, null=True)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE ,blank=True, null=True)
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE ,blank=True, null=True)
     # user = models.ForeignKey(User, on_delete=models.CASCADE),
     text = models.CharField(max_length=1000, null=False, blank=False)
 
@@ -107,32 +120,24 @@ ratings = [(1, 1), (2, 2), (3, 3), (4, 4), (5, 5)]
 
 
 class HospitalReview(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, default=1)
+    patient = models.ForeignKey(HospitalPatient, on_delete=models.CASCADE, null=True, default=1)
     hospital = models.ForeignKey(Hospital, null=False, blank=False, on_delete=models.CASCADE)
     rating = models.IntegerField(choices=ratings, null=False, blank=False)
     comment = models.CharField(max_length=1000)
+    # symtoms = models.CharField(max_length=100, null=False, blank=False)
     attachment = models.FileField(upload_to="attachments/hospital/", blank=True, null=True)
 
 
 hospital_patient_status = [('Admitted', 'Admitted'), ('Discharged', 'Discharged')]
 
 class DoctorReview(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, default=1)
+    patient = models.ForeignKey(DoctorAppointment, on_delete=models.CASCADE, null=True, default=1)
     doctor = models.ForeignKey(Doctor, null=False, blank=False, on_delete=models.CASCADE)
-    rating = models.IntegerField(choices=ratings,null=True, blank=True)
+    rating = models.IntegerField(choices=ratings ,null=True, blank=True)
     comment = models.CharField(max_length=1000, null=True, blank= True)
-    symtoms = models.CharField(max_length=100, null=False, blank=False)
+    # symtoms = models.CharField(max_length=100, null=False, blank=False)
     attachment = models.FileField(upload_to="attachments/doctor/", blank=True, null=True)
 
 
 
 
-class HospitalPatient(models.Model):
-    patient = models.ForeignKey(Patient,null=False, blank=False,on_delete=models.CASCADE)
-    hospital = models.ForeignKey(Hospital, null=False, blank=False,on_delete=models.CASCADE)
-    symptoms = models.CharField(max_length=1000,default="")
-    status = models.CharField(choices=hospital_patient_status, null=False, blank=False,max_length=100)
-    is_reviewed = models.BooleanField(default=False)
-
-    def __str__(self):
-        return "{} ({})".format(self.hospital.hospital_name, self.patient.get_name)
