@@ -32,8 +32,8 @@
         <tr>
           <th>Name</th>
 
-          <th>Admit Date</th>
-          <th>Release Date</th>
+{#          <th>Admit Date</th>#}
+{#          <th>Release Date</th>#}
           <th>Symptoms</th>
           <th>Mobile</th>
           <th>Address</th>
@@ -42,12 +42,12 @@
       </thead>
       {% for p in dischargedpatients %}
       <tr>
-        <td> {{p.patientName}}</td>
-        <td>{{p.admitDate}}</td>
-        <td>{{p.releaseDate}}</td>
-        <td>{{p.symptoms}}</td>
-        <td>{{p.mobile}}</td>
-        <td>{{p.address}}</td>
+        <td> {{p.patient.get_name}}</td>
+{#        <td>{{p.admitdate}}</td>#}
+{#        <td>{{p.releaseDate}}</td>#}
+        <td>{{p.symtoms}}</td>
+        <td>{{p.patient.mobile}}</td>
+        <td>{{p.patient.address}}</td>
       </tr>
       {% endfor %}
     </table>

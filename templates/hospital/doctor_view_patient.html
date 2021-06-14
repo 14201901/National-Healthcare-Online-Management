@@ -35,7 +35,7 @@
           <th>Symptoms</th>
           <th>Mobile</th>
           <th>Address</th>
-
+          <th>Status</th>
         </tr>
       </thead>
       {% for p in patients %}
@@ -45,7 +45,11 @@
         <td>{{p.symtoms}}</td>
         <td>{{p.patient.mobile}}</td>
         <td>{{p.patient.address}}</td>
-      <td><a href="discharge/{{ p.id }}">Discharge</a></td>
+      <td>{{ p.status }}
+          {% if p.staus == "Admitted" %}
+          <a href="discharge/{{ p.id }}">Discharge</a>
+          {% endif %}
+      </td>
       </tr>
       {% endfor %}
     </table>

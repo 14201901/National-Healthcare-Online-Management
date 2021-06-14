@@ -1,4 +1,4 @@
-{% extends 'hospital/admin_base.html' %}
+{% extends 'hospital/hospital_base.html' %}
 {% load static %}
 {% block content %}
 
@@ -138,9 +138,13 @@
             </td>
 
             <td>
+                {% if assignedDoctorName %}
               Doctor Name :<br>
               {{assignedDoctorName}}<br>
-
+                    {% else %}
+                     Hospital Name :<br>
+              {{hospital_name}}<br>
+                {% endif %}
             </td>
           </tr>
         </table>
@@ -180,7 +184,7 @@
         </td>
 
         <td>
-          <input type="number" name="roomCharge" placeholder="In Rupees" value="">
+          <input type="number" name="roomCharge" placeholder="In BDT" value="">
         </td>
       </tr>
 
@@ -190,7 +194,7 @@
         </td>
 
         <td>
-          <input type="number" name="doctorFee" placeholder="In Rupees" value="">
+          <input type="number" name="doctorFee" placeholder="In BDT" value="">
         </td>
       </tr>
 
@@ -200,7 +204,7 @@
         </td>
 
         <td>
-          <input type="number" name="medicineCost" placeholder="In Rupees" value="">
+          <input type="number" name="medicineCost" placeholder="In BDT" value="">
         </td>
       </tr>
 
@@ -210,7 +214,7 @@
         </td>
 
         <td>
-          <input type="number" name="OtherCharge" placeholder="In Rupees" value="">
+          <input type="number" name="OtherCharge" placeholder="In BDT" value="">
         </td>
       </tr>
 
