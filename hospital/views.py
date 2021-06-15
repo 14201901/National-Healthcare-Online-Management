@@ -903,7 +903,7 @@ def doctor_review(request, pk):
     doctor = doctor_appointment.doctor
     patient = doctor_appointment.patient
     if request.method == "POST":
-        form = DoctorReviewForm(request.POST)
+        form = DoctorReviewForm(request.POST, request.FILES)
         print(form.is_valid())
         if form.is_valid():
             review = form.save(commit=False)
@@ -922,9 +922,9 @@ def hospital_review(request, pk):
 
     hospital_appointment = models.HospitalPatient.objects.get(id=pk)
     hospital = hospital_appointment.hospital
-    patient = hospital_appointment.patient
+    patient = hospital_appointment
     if request.method == "POST":
-        form = HospitalReviewForm(request.POST)
+        form = HospitalReviewForm(request.POST, request.FILES)
         print(form.is_valid())
         if form.is_valid():
             review = form.save(commit=False)
