@@ -45,9 +45,15 @@
         <td>{{p.symtoms}}</td>
         <td>{{p.patient.mobile}}</td>
         <td>{{p.patient.address}}</td>
-      <td>{{ p.status }}
-          {% if p.staus == "Admitted" %}
-          <a href="discharge/{{ p.id }}">Discharge</a>
+      <td>
+          {% if p.status == "Enrolled" %}
+              Enrolled
+          <a href="discharge/{{ p.id }}">  Discharge</a>
+              {% elif p.status == "Pending" %}
+                Pending
+          <a href="doctor-approve-appointment/{{ p.id }}">  Confirm</a>
+              {% else %}
+              Dischared
           {% endif %}
       </td>
       </tr>

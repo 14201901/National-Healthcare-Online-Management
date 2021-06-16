@@ -2,7 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 hospital_patient_status = [('Admitted', 'Admitted'), ('Discharged', 'Discharged')]
-doctor_patient_status = [('Enrolled', 'Enrolled'), ('Discharged', 'Discharged')]
+doctor_patient_status = [('Pending', 'Pending'),('Enrolled', 'Enrolled'), ('Discharged', 'Discharged')]
 
 class Hospital(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -86,7 +86,7 @@ class DoctorAppointment(models.Model):
     appointmentDate = models.DateField(auto_now=True)
     symtoms = models.CharField(max_length=50, null=False, blank=True)
     description = models.TextField(max_length=500)
-    status = models.CharField(choices=doctor_patient_status ,blank=True, null=True, max_length=100, default="Enrolled")
+    status = models.CharField(choices=doctor_patient_status ,blank=True, null=True, max_length=100, default="Pending")
     is_reviewed = models.BooleanField(default=False)
 
 
