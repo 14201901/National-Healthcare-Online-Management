@@ -4,77 +4,84 @@
     <br>
     <br>
     <br>
-<div class="container">
-<br>
-    <div class="card shadow-sm" style="padding: 25px">
-        <div class="row">
-            <div class="col-md-3">
-                 <img src="{% static doctor.profile_pic.url %}" width="100" height="100" alt="Profile Pic" />
-        </div>
-            <div class="col-md-4" style="background-color: cornflowerblue; padding-top: 35px;">
-                 <h4>{{ doctor.user.get_full_name }}</h4>
-        </div>
-            <div class="col-md-5 shadow" style="background-color: #5bc995; padding-top: 30px; padding-left: 150px">
-
-        <h5>{{ doctor.address }}</h5>
-        <h5>{{ doctor.mobile }}</h5>
-        </div>
-        
-        </div>
-    </div>
-<br>
-<br>
-{% for r in reviews %}
-    <div class="card">
-      <center> <img src="{% static r.patient.patient.profile_pic.url %}" width="100" height="100" alt="Avatar" class="avatar">
+    <div class="container" style="background-color: rgb(80, 19, 179);">
         <br>
-           <br>
-    <h5>{{ r.patient.patient.user.get_full_name }}</h5>
-      </center>
-    {% if r.rating == 5 %}
-        <div class="row" style="align-content: center;alignment: center">
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-        </div>
-        {% elif r.rating == 4  %}
-        <div class="row" style="align-content: center;alignment: center">
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-        </div>
-        {% elif r.rating == 3  %}
-        <div class="row" style="align-content: center;alignment: center">
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-        </div>
-        {% elif r.rating == 2  %}
-        <div class="row" style="align-content: center;alignment: center">
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-        </div>
-        {% elif r.rating == 1  %}
-        <div class="row" style="align-content: center;alignment: center">
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-        </div>
+                <div class="card shadow-sm" style="background-color: rgb(207, 192, 231); padding: 25px">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img src="{% static doctor.profile_pic.url %}" width="100" height="100" alt="Profile Pic" />
+                                <h5 class="card-title">{{ doctor.user.get_full_name }}</h5>
+                            </div>             
 
-        {% endif %}
-      <h3 style="alignment: left; font-family: 'Harlow Solid Italic'; font-size: 22px">Symtoms: {{ r.patient.symtoms }}</h3>
-    {% if r.attachment %}
-   <a  style="font-size: 22px" href="{% static r.attachment.url %}"> View Prescription and Bill Documents</a>
-    {% endif %}
-    <h3 style=" font-family: 'Harlow Solid Italic'; font-size: 22px">Comment: "{{ r.comment }}"</h3>
+                                   <div class="col-md-4 shadow" style="background-color: rgb(167, 223, 201); padding-top: 35px;">
+                                         <h4>{{ doctor.department }}</h4>
+                                  </div>         
+                                            
+                                            <div class="col-md-1" style="background-color: rgb(207, 192, 231); padding-top: 35px;">
+
+                                        </div>
+
+                                            <div class="col-md-5 shadow" style="background-color: #5bc995; padding-top: 30px; ">
+                                                    <h4>{{ doctor.address }}</h4>
+                                                    <h4>{{ doctor.mobile }}</h4>
+                                            </div>
+                                            <br><br>
+                            </div>
+                                    
+                </div>
+        <br>
+        <br>
+                {% for r in reviews %}
+                    <div class="card">
+                    <center> <img src="{% static r.patient.patient.profile_pic.url %}" width="100" height="100" alt="Avatar" class="avatar">
+                        <br>
+                        <br>
+                    <h5>{{ r.patient.patient.user.get_full_name }}</h5>
+                    </center>
+                    {% if r.rating == 5 %}
+                        <div class="row" style="align-content: center;alignment: center">
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        </div>
+                        {% elif r.rating == 4  %}
+                        <div class="row" style="align-content: center;alignment: center">
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        </div>
+                        {% elif r.rating == 3  %}
+                        <div class="row" style="align-content: center;alignment: center">
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        </div>
+                        {% elif r.rating == 2  %}
+                        <div class="row" style="align-content: center;alignment: center">
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        </div>
+                        {% elif r.rating == 1  %}
+                        <div class="row" style="align-content: center;alignment: center">
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        </div>
+
+                        {% endif %}
+                    <h3 style="alignment: left; font-family: 'Harlow Solid Italic'; font-size: 22px">Symtoms: {{ r.patient.symtoms }}</h3>
+                    {% if r.attachment %}
+                <a  style="font-size: 22px" href="{% static r.attachment.url %}"> View Prescription and Bill Documents</a>
+                    {% endif %}
+                    <h3 style=" font-family: 'Harlow Solid Italic'; font-size: 22px">Comment: "{{ r.comment }}"</h3>
+
+                    </div>
+                    <br><br>
+                {% endfor %}
 
     </div>
-
-{% endfor %}
-
-</div>
     <br>
     <br>
     <br>
