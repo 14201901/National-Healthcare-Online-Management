@@ -46,7 +46,7 @@ class Doctor(models.Model):
         return self.user.id
 
     def __str__(self):
-        return "{} ({})".format(self.user.first_name, self.department)
+        return "{} ({})".format(self.get_name, self.department)
 
 
 class Patient(models.Model):
