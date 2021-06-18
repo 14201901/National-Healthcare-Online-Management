@@ -754,7 +754,7 @@ def patient_book_appointment_view(request):
         if appointmentForm.is_valid():
             appointment = appointmentForm.save(commit=False)
             appointment.patient = patient  # ----user can choose any patient but only their info will be stored
-            appointment.status = False
+            appointment.status = "Pending"
             appointment.save()
         return HttpResponseRedirect('patient-view-appointment')
     return render(request, 'hospital/patient_book_appointment.html', context=mydict)
@@ -917,7 +917,8 @@ def doctor_review(request, pk):
             doctor_appointment.is_reviewed = True
             doctor_appointment.save()
     dic = {
-        'form': DoctorReviewForm()
+        'form': DoctorReviewForm(),
+        'patient' : patient.patient
     }
     return render(request, 'hospital/patient_doctor_review.html', context=dic)
 
@@ -925,17 +926,19 @@ def doctor_review(request, pk):
 def hospital_review(request, pk):
     hospital_appointment = models.HospitalPatient.objects.get(id=pk)
     hospital = hospital_appointment.hospital
-    patient = hospital_appointment
+    patient = models.Patient.objects.get(user_id=request.user.id)
+    patient1 = hospital_appointment
     if request.method == "POST":
         form = HospitalReviewForm(request.POST, request.FILES)
         print(form.is_valid())
         if form.is_valid():
             review = form.save(commit=False)
             review.hospital = hospital
-            review.patient = patient
+            review.patient = patient1
             review.save()
             hospital_appointment.is_reviewed = True
             hospital_appointment.save()
+    print(patient.profile_pic.url)
     dic = {
         'form': HospitalReviewForm(),
         'patient': patient
