@@ -1,6 +1,9 @@
 {% extends 'hospital/homebase.html' %}
 {% load static %}
 {% block content %}
+    
+
+
     <br>
     <br>
     <br>
@@ -13,20 +16,20 @@
                                 <h5 class="card-title">{{ doctor.user.get_full_name }}</h5>
                             </div>             
 
-                                   <div class="col-md-4 shadow" style="background-color: rgb(167, 223, 201); padding-top: 35px;">
-                                         <h4>{{ doctor.department }}</h4>
-                                  </div>         
+                            <div class="col-md-4 shadow" style="background-color: rgb(167, 223, 201); padding-top: 35px;">
+                                 <h4>{{ doctor.department }}</h4>
+                             </div>         
                                             
-                                            <div class="col-md-1" style="background-color: rgb(207, 192, 231); padding-top: 35px;">
+                            <div class="col-md-1" style="background-color: rgb(207, 192, 231); padding-top: 35px;">
 
-                                        </div>
+                             </div>
 
-                                            <div class="col-md-5 shadow" style="background-color: #5bc995; padding-top: 30px; ">
-                                                    <h4>{{ doctor.address }}</h4>
-                                                    <h4>{{ doctor.mobile }}</h4>
-                                            </div>
-                                            <br><br>
+                            <div class="col-md-5 shadow" style="background-color: #5bc995; padding-top: 30px; ">
+                                <h4>{{ doctor.address }}</h4>
+                                <h4>{{ doctor.mobile }}</h4>
                             </div>
+                                            <br><br>
+                        </div>
                                     
                 </div>
         <br>
