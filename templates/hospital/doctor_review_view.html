@@ -76,7 +76,7 @@
                         {% endif %}
                     <h3 style="alignment: left; font-family: 'Harlow Solid Italic'; font-size: 22px">Symtoms: {{ r.patient.symtoms }}</h3>
                     {% if r.attachment %}
-                <a  style="font-size: 22px" href="{% static r.attachment.url %}"> View Prescription and Bill Documents</a>
+                <a  style="font-size: 22px" href="{{ r.attachment.url }}"> View Prescription and Bill Documents</a>
                     {% endif %}
                     <h3 style=" font-family: 'Harlow Solid Italic'; font-size: 22px">Comment: "{{ r.comment }}"</h3>
 

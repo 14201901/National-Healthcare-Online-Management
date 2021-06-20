@@ -9,7 +9,7 @@
     <div class="card shadow-sm" style="padding: 25px">
         <div class="row">
             <div class="col-md-3">
-                 <img src="{% static hospital.profile_pic.url %}" width="100" height="100" alt="Profile Pic" />
+                 <img src="{{ hospital.profile_pic.url }}" width="100" height="100" alt="Profile Pic" />
         </div>
             <div class="col-md-8">
                  <h4>{{ hospital.hospital_name }}</h4>
@@ -23,7 +23,7 @@
 {% for r in reviews %}
     <div class="card shadow "style="padding: 20px 20px 20px 20px;">
 
-       <center> <img src="{% static r.patient.patient.profile_pic.url %}" width="100" height="100" alt="Avatar" class="avatar">
+       <center> <img src="{{ r.patient.patient.profile_pic.url }}" width="100" height="100" alt="Avatar" class="avatar">
         <br>
            <br>
     <h5>{{ r.patient.patient.user.get_full_name }}</h5>
@@ -65,7 +65,7 @@
 </center>
      <h3 style="alignment: left; font-family: 'Harlow Solid Italic'; font-size: 22px">Symtoms: {{ r.patient.symptoms }}</h3>
     {% if r.attachment %}
-   <a  style="font-size: 22px" href="{% static r.attachment.url %}"> View Prescription and Bill Documents</a>
+   <a  style="font-size: 22px" href="{{  r.attachment.url }}"> View Prescription and Bill Documents</a>
     {% endif %}
     <h3 style=" font-family: 'Harlow Solid Italic'; font-size: 22px">Comment: "{{ r.comment }}"</h3>
 

@@ -44,7 +44,7 @@
       <tr>
 
         <td> {{hospital.hospital_name}}</td>
-        <td> <img src="{% static hospital.profile_pic.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
+        <td> <img src="{{ hospital.profile_pic.url }}" alt="Profile Pic" height="40px" width="40px" /></td>
         <td>{{hospital.mobile}}</td>
         <td>{{hospital.location}}</td>
               {% if hospital.approved %}

@@ -614,7 +614,6 @@ def doctor_dashboard_view(request):
 
     # for  table in doctor dashboard
     appointments = models.DoctorAppointment.objects.all().filter(status=True, doctor__user=request.user).order_by('-id')
-    print(appointments)
     patientid = []
     for a in appointments:
         patientid.append(a.patient_id)

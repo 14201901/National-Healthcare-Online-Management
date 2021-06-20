@@ -148,7 +148,7 @@
 
                                         <div class="card">
                                                           {% if post.hospital %}
-                                                                          <img src="{% static  post.hospital.profile_pic.url %}" height="200px" width="300px" alt="Hospital Photo">
+                                                                          <img src="{{ post.hospital.profile_pic.url }}" height="200px" width="300px" alt="Hospital Photo">
                                                                           
                                                                           <div class="card-content">
                                                                                 <br>
@@ -167,7 +167,7 @@
 
 
                                                           {% elif post.doctor %}
-                                                                            <img src="{% static  post.doctor.profile_pic.url %}" height="200px" width="300px" alt="Doctor Photo">
+                                                                            <img src="{{ post.doctor.profile_pic.url }}" height="200px" width="300px" alt="Doctor Photo">
                                                                             
                                                                             <div class="card-content">
                                                                                 <br>

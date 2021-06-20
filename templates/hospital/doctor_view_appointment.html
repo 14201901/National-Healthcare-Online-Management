@@ -42,7 +42,7 @@
       {% for a in appointments %}
       <tr>
         <td>{{a.patient.user.get_full_name}}</td>
-        <td> <img src="{% static a.patient.profile_pic.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
+        <td> <img src="{{ a.patient.profile_pic.url }}" alt="Profile Pic" height="40px" width="40px" /></td>
         <td>{{a.description}}</td>
         <td>{{a.patient.mobile}}</td>
         <td>{{a.patient.address}}</td>
