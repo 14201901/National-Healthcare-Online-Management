@@ -27,7 +27,7 @@ SECRET_KEY = 'hpbv()ep00boce&o0w7z1h)st148(*m@6@-rk$nn)(n9ojj4c0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.0.0.3','127.0.0.1']
+ALLOWED_HOSTS = ['10.0.0.3','127.0.0.1','ssoad.pythonanywhere.com']
 
 
 # Application definition
@@ -124,11 +124,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS=[STATIC_DIR,]
+# STATICFILES_DIRS=[STATIC_DIR,]
 
-MEDIA_ROOT=os.path.join(BASE_DIR,'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
-
+STATIC_ROOT = '/home/ssoad/National-Healthcare-Online-Management/static'
 
 LOGIN_REDIRECT_URL='/afterlogin'
 

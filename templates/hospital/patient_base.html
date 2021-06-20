@@ -95,7 +95,7 @@
     <div class="smartphone-menu-trigger"></div>
     <header class="avatar">
         <br><br>
-      <img src="{% static patient.profile_pic.url %}" alt="Profile Pic" />
+      <img src="{{ patient.profile_pic.url }}" alt="Profile Pic" />
       <br><br>
       <h6>Patient</h6>
       <h2>{{request.user.get_full_name}}</h2>
@@ -103,9 +103,9 @@
     <ul>
       <li tabindex="0" class="icon-dashboard"> <a style="color:white; text-decoration:none;" href="/patient-dashboard"><span>Dashboard</span></a> </li>
       <li tabindex="0" class="icon-calendar"> <a style="color:white; text-decoration:none;" href="/patient-appointment"><span>Appointments</span></a></li>
-      
+
         <li tabindex="0" class="icon-users"> <a style="color:white; text-decoration:none;" href="/patient-hospital-history"><span>Hospital History</span></a></li>
-        
+
     </ul>
   </nav>
   <main>
