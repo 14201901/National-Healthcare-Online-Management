@@ -8,7 +8,7 @@
                     <div class="card shadow-sm" style="background-color: rgb(207, 192, 231); padding: 25px">
                                 <div class="row">
                                         <div class="col-md-2">
-                                                <img src="{% static hospital.profile_pic.url %}" width="100" height="100" alt="Profile Pic" />
+                                                <img src="{{ hospital.profile_pic.url }}" width="100" height="100" alt="Profile Pic" />
                                                 <h4>{{ hospital.hospital_name }}</h4>
                                         </div>
 
@@ -37,7 +37,7 @@
                     {% for r in reviews %}
                                 <div class="card shadow "style="padding: 20px 20px 20px 20px; background-color: #c9e0ae;">
 
-                                        <center> <img src="{% static r.patient.patient.profile_pic.url %}" width="100" height="100" alt="Avatar" class="avatar">
+                                        <center> <img src="{{ r.patient.patient.profile_pic.url }}" width="100" height="100" alt="Avatar" class="avatar">
 
                                                             <br> <br>
                                                             <h5>{{ r.patient.patient.user.get_full_name }}</h5>
@@ -85,7 +85,7 @@
                                         <h3 style="alignment: left; font-family: 'Harlow Solid Italic'; font-size: 22px">Symtoms: {{ r.patient.symptoms }}</h3>
 
                                         {% if r.attachment %}
-                                                    <a  style="font-size: 22px" href="{% static r.attachment.url %}"> View Prescription and Bill Documents</a>
+                                                    <a  style="font-size: 22px" href="{{ r.attachment.url }}"> View Prescription and Bill Documents</a>
                                         {% endif %}
 
                                         <div class="col-md-12" style="background-color:  #a5d4b5; padding: 30px 30px 30px 30px;">
